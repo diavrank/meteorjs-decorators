@@ -42,16 +42,14 @@ export function Validate(...dtos: Type<RequestDto>[] | String[]) {
 
                         if (errors.length > 0) {
                             const details = errors
-                                .flatMap((error) =>
-                                    Object.values(error.constraints ?? {}).map(
-                                        (message) => `${error.property}: ${message}`
-                                    )
+                                .map((error) =>
+                                    error.toString(false, false, '', true) + '\n'
                                 )
                                 .join('; ');
                             throw new Meteor.Error(
                                 'validation-error',
                                 'Validation failed',
-                                details || 'Validation failed'
+                                details
                             );
                         }
 
