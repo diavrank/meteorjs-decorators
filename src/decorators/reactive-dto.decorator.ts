@@ -19,7 +19,9 @@ export function ReactiveDto(dto: Type<ResponseDto>) {
 				throw new Meteor.Error('publication-error', 'Cannot resolve collection name for reactive publication.');
 			}
 
-			const toDto = (doc: any) => new dto().build(doc);
+			const toDto = (doc: any): Record<string, unknown> => ({
+				...(new dto().build(doc) as unknown as Record<string, unknown>),
+			});
 
 			const handle = cursor.observe({
 				added(doc) {

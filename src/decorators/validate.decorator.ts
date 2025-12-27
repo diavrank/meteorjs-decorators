@@ -41,7 +41,18 @@ export function Validate(...dtos: Type<RequestDto>[] | String[]) {
                         const errors: ValidationError[] = validateSync(requestDto);
 
                         if (errors.length > 0) {
-                            throw new Meteor.Error('validation-error', 'Validation failed', errors);
+                            const details = errors
+                                .flatMap((error) =>
+                                    Object.values(error.constraints ?? {}).map(
+                                        (message) => `${error.property}: ${message}`
+                                    )
+                                )
+                                .join('; ');
+                            throw new Meteor.Error(
+                                'validation-error',
+                                'Validation failed',
+                                details || 'Validation failed'
+                            );
                         }
 
                         // Replace object argument with validated DTO

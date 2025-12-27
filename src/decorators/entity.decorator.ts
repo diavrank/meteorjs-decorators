@@ -18,8 +18,12 @@ export function Index(indexSpec: IndexSpecification,
     };
 }
 
-export function Entity(collectionName: string, collectionObject?: Mongo.Collection<any>): ClassDecorator {
-    return <T extends EntityConstructor<any>>(constructor: T) => {
+export function Entity(
+    collectionName: string,
+    collectionObject?: Mongo.Collection<any>
+): ClassDecorator {
+    return (target: Function) => {
+        const constructor = target as EntityConstructor<any>;
         const collection = collectionObject ?? new Mongo.Collection(collectionName);
         constructor.collection = collection as Mongo.Collection<any>;
 
@@ -30,7 +34,5 @@ export function Entity(collectionName: string, collectionObject?: Mongo.Collecti
                 void rawCollection.createIndex(indexSpec, options);
             });
         }
-
-        return constructor;
     };
 }

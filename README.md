@@ -1,4 +1,4 @@
-# meteor-decorators
+# meteorjs-decorators
 
 NestJS-style decorators for Meteor methods, publications, dependency injection, and DTO validation.
 
@@ -9,7 +9,7 @@ NestJS-style decorators for Meteor methods, publications, dependency injection, 
 
 ## Install
 ```bash
-npm install meteor-decorators
+npm install meteorjs-decorators
 ```
 
 ## Setup
@@ -30,8 +30,8 @@ import 'reflect-metadata';
 
 ## Quick start
 ```ts
-import { Controller, Method, Auth, Validate, Dto, Injectable, BaseController } from 'meteor-decorators';
-import { RequestDto, ResponseDto } from 'meteor-decorators';
+import { Controller, Method, Auth, Validate, Dto, Injectable, BaseController } from 'meteorjs-decorators';
+import { RequestDto, ResponseDto } from 'meteorjs-decorators';
 import { IsEmail, IsString } from 'class-validator';
 
 class CreateUserDto extends RequestDto {
@@ -81,7 +81,7 @@ export class UsersController extends BaseController {
 
 ## Publications (with optional DTO mapping)
 ```ts
-import { Publication, ReactiveDto, BasePublication, Injectable } from 'meteor-decorators';
+import { Publication, ReactiveDto, BasePublication, Injectable } from 'meteorjs-decorators';
 
 @Injectable()
 class UsersService {
@@ -107,7 +107,7 @@ export class UsersPublication extends BasePublication {
 
 ## Modules and DI
 ```ts
-import { Module, forwardRef } from 'meteor-decorators';
+import { Module, forwardRef } from 'meteorjs-decorators';
 
 @Module({
   imports: [forwardRef(() => AuthModule)],
@@ -119,7 +119,7 @@ export class UsersModule {}
 
 Use `@Inject(token)` when you need a custom token or to resolve circular deps:
 ```ts
-import { Inject, Injectable, forwardRef } from 'meteor-decorators';
+import { Inject, Injectable, forwardRef } from 'meteorjs-decorators';
 
 @Injectable()
 class BillingService {
@@ -129,7 +129,7 @@ class BillingService {
 
 ## Entities and indexes
 ```ts
-import { Entity, Index, BaseEntity } from 'meteor-decorators';
+import { Entity, Index, BaseEntity } from 'meteorjs-decorators';
 
 @Entity('widgets')
 export class WidgetEntity extends BaseEntity {
