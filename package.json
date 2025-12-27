@@ -1,6 +1,6 @@
 {
   "name": "meteorjs-decorators",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Meteor decorators to make your Meteor app with NestJS-style pattern.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
