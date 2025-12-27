@@ -1,0 +1,26 @@
+{
+  "name": "meteor-decorators",
+  "version": "1.0.0",
+  "description": "Meteor decorators to make your Meteor app with NestJS-style pattern.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "Ivan Cabrera",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/meteor": "^2.0.0",
+    "mongodb": "^6.13.1",
+    "typescript": "^5.4.5"
+  }
+}
