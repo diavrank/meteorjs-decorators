@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Container } from '../utils/container';
+import { Container, ContainerToken } from '../utils/container';
 import { ForwardRef } from '../utils/forward-ref';
 import { getInjectTokens, InjectToken } from './inject.decorator';
 
@@ -30,7 +30,7 @@ export function Injectable() {
             current = Object.getPrototypeOf(current);
         }
         const container = current?.__container || Container;
-        container.register(target.name, factory);
+        container.register(target, factory);
 
         return target;
     };
@@ -41,7 +41,7 @@ function resolveInjectionToken(
     customToken: InjectToken | undefined,
     targetName: string,
     index: number
-): string {
+): ContainerToken {
     if (customToken) {
         return unwrapToken(customToken);
     }
@@ -51,15 +51,15 @@ function resolveInjectionToken(
             'Consider using @Inject with forwardRef to resolve circular dependencies.'
         );
     }
-    return reflectedType.name;
+    return reflectedType;
 }
 
-function unwrapToken(token: InjectToken): string {
+function unwrapToken(token: InjectToken): ContainerToken {
     if (typeof token === 'string') {
         return token;
     }
     if (token instanceof ForwardRef) {
-        return token.get().name;
+        return token.get();
     }
-    return token().name;
+    return token();
 }
