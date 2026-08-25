@@ -6,11 +6,15 @@ export function CheckPermissions(...permissions: string[]) {
     ) {
         const originalMethod = descriptor.value;
         descriptor.value = async function (...args: any[]) {
-            // TODO: apply Auth validation
             const userId = this.__context.userId;
             let hasPermission = false;
             if (userId !== null) {
                 const [scope] = await Roles.getScopesForUserAsync(userId);
+                
+                if(scope === 'admin'){
+                    return originalMethod.apply(this, args);
+                }
+
                 if (permissions.length !== 0) {
                     hasPermission = await Roles.userIsInRoleAsync(userId, permissions, scope);
                 }
